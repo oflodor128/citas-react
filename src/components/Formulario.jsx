@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Error from "./Error";
 
-const Formulario = ({ pacientes, setPacientes, paciente }) => {
+const Formulario = ({ pacientes, setPacientes, paciente, setPaciente }) => {
   //Declarar el state a como se va requiriendo
   //Procurar probar states para validar funcionamiento
   const [nombre, setNombre] = useState('');
@@ -14,10 +14,15 @@ const Formulario = ({ pacientes, setPacientes, paciente }) => {
 
   //Solo se activa cuando el estado de paciente cambia
   useEffect(() => {
-  
+    if (Object.keys(paciente).length > 0) {
+      setNombre(paciente.nombre)
+      setPropietario(paciente.propietario)
+      setEmail(paciente.email)
+      setFecha(paciente.fecha)
+      setSintomas(paciente.sintomas)
+    }
   }, [paciente])
-
-  u
+  
   const generarId = () => {
     const random = Math.random().toString(36).substring(2);
     const fecha = Date.now().toString(36);
@@ -35,22 +40,35 @@ const Formulario = ({ pacientes, setPacientes, paciente }) => {
       return;
     }
     setError(false);
-    //Objeto de paciente
+    //Objeto de paciente volatil
     const objetoPaciente = {
       nombre,
       propietario,
       email,
       fecha,
-      sintomas,
-      id: generarId()
-    };
+      sintomas
+    }
+    if (paciente.id) {
+      //Editando el registro
+      //Se le asigna el Id asignado en el registro previo a la edicion
+      objetoPaciente.id = paciente.id
+
+      const pacienteActualizados = pacientes.map(pacienteState => pacienteState.id === paciente.id ? objetoPaciente : pacienteState)
+      setPacientes(pacienteActualizados)
+      setPaciente({})
+
+    } else {
+      //Registrando nuevo elemento, y genera un nuevo Id unico.
+      //Tomar una copia de lo que ya hay en el arreglo para no reescribir su contenido
+      //Mediante un spread operator "..." del contenido de pacientes, 
+      // y se sobreescribe en el objetoPaciente.
+      objetoPaciente.id = generarId();
+      setPacientes([...pacientes, objetoPaciente]);
+    }
 
     //console.log(pacientes);
 
-    //Tomar una copia de lo que ya hay en el arreglo para no reescribir su contenido
-    //Mediante un spread operator "..." del contenido de pacientes, 
-    // y se sobreescribe en el objetoPaciente.
-    setPacientes([...pacientes, objetoPaciente]);
+
 
     //Reiniciar el formulario
     setNombre('');
@@ -153,6 +171,7 @@ const Formulario = ({ pacientes, setPacientes, paciente }) => {
           type="submit"
           className="bg-orange-600 w-full p-3 text-white uppercase 
          font-bold hover:bg-orange-700 cursor-pointer transition-colors"
+          value={paciente.id ? 'Editar' : 'Agregar'}
         />
       </form>
     </div>

@@ -1,6 +1,6 @@
 import Paciente from "./Paciente";
 //Viene setPaciente desde App.jsx, se lee y se pasa al comoponente Paciente
-const ListadoPacientes = ({ pacientes, setPaciente }) => {
+const ListadoPacientes = ({ pacientes, setPaciente, eliminarPaciente }) => {
 
 
     return (
@@ -22,6 +22,7 @@ const ListadoPacientes = ({ pacientes, setPaciente }) => {
                             key={paciente.id}
                             paciente={paciente}
                             setPaciente={setPaciente}
+                            eliminarPaciente={eliminarPaciente}
                         />
                     ))}
                 </>
