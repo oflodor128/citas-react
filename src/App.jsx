@@ -10,6 +10,8 @@ function App() {
   //pacientes: valor inicial del state
   //setPacientes: modificador del state
 const [pacientes, setPacientes] = useState([]);
+//Se pasa el prop de setPaciente al componente listadoPaciente
+const [paciente, setPaciente] = useState({});
 //Es recomendable nombrar al prop como el valor que se le quiere dar, para evitar confuciones.
 //Ejemplo: toma1Valor={toma1Valor}
 
@@ -28,9 +30,11 @@ const [pacientes, setPacientes] = useState([]);
         <Formulario 
         pacientes={pacientes}
         setPacientes={setPacientes}
+        paciente={paciente}
         />
         <ListadoPacientes 
         pacientes={pacientes}
+        setPaciente={setPaciente}
         />
       </div>
     </div>

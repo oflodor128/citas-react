@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Error from "./Error";
 
-const Formulario = ({pacientes, setPacientes}) => {
+const Formulario = ({ pacientes, setPacientes, paciente }) => {
   //Declarar el state a como se va requiriendo
   //Procurar probar states para validar funcionamiento
   const [nombre, setNombre] = useState('');
@@ -12,17 +12,23 @@ const Formulario = ({pacientes, setPacientes}) => {
 
   const [error, setError] = useState(false);
 
-  const generarId = () => {
-const random = Math.random().toString(36).substring(2);
-const fecha = Date.now().toString(36);
+  //Solo se activa cuando el estado de paciente cambia
+  useEffect(() => {
+  
+  }, [paciente])
 
-return random + fecha;
+  u
+  const generarId = () => {
+    const random = Math.random().toString(36).substring(2);
+    const fecha = Date.now().toString(36);
+
+    return random + fecha;
   };
   const handleSubmit = (e) => {
     e.preventDefault();
 
     //Validacion del formulario
-    if( [nombre, propietario, email, fecha, sintomas].includes('') ){
+    if ([nombre, propietario, email, fecha, sintomas].includes('')) {
       console.log('Hay almenos un campo vacio');
 
       setError(true);
@@ -31,12 +37,12 @@ return random + fecha;
     setError(false);
     //Objeto de paciente
     const objetoPaciente = {
-      nombre, 
+      nombre,
       propietario,
-      email, 
+      email,
       fecha,
       sintomas,
-      id:generarId()
+      id: generarId()
     };
 
     //console.log(pacientes);
@@ -63,20 +69,20 @@ return random + fecha;
         <span className="text-orange-600 font-bold">Gestiona</span>
       </p>
 
-      <form 
-      onSubmit={handleSubmit}
-      className="bg-white shadow-md rounded-lg py-10 px-5 mb-10">
-        
-        {error && 
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-md rounded-lg py-10 px-5 mb-10">
+
+        {error &&
           <Error>
-              <p>Todos los campos son obligados!!</p>
+            <p>Todos los campos son obligados!!</p>
           </Error>
-          }
+        }
         <div className="mb-5">
           <label htmlFor="mascota" className="block text-gray-700 uppercase font-bold">
             Nombre P
           </label>
-          
+
 
           <input
             id="mascota"
