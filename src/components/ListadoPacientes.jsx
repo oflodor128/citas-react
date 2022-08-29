@@ -1,13 +1,15 @@
 import Paciente from "./Paciente";
 //Viene setPaciente desde App.jsx, se lee y se pasa al comoponente Paciente
 const ListadoPacientes = ({ pacientes, setPaciente, eliminarPaciente }) => {
-
+//setPaciente se utiliza para modicar a un paciente
+    console.log(pacientes)
 
     return (
         <div className="md:w-1/2 lg:w-3/5 md:h-screen overflow-y-scroll">
-
-            {pacientes && pacientes.length ? (
-                <>
+        
+            {pacientes && pacientes.length ? 
+            //En caso que tenga registros
+            ( <>
                     <h2 className="font-black text-3xl text-center">
                         Listado Pacientes
                     </h2>
@@ -27,6 +29,7 @@ const ListadoPacientes = ({ pacientes, setPaciente, eliminarPaciente }) => {
                     ))}
                 </>
             ) : (
+                //En caso de no tener registros
                 <>
                     <h2 className="font-black text-3xl text-center">
                         No tenemos pacientes
@@ -41,4 +44,4 @@ const ListadoPacientes = ({ pacientes, setPaciente, eliminarPaciente }) => {
     )
 };
 
-export default ListadoPacientes;
+export default ListadoPacientes

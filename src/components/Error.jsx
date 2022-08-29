@@ -3,9 +3,9 @@
 const Error = ({children}) => {
   return (
     <div className="bg-red-600 font-bold text-center text-white rounded p-2">
-        <p>{children}</p>
+        {children}
         </div>
   )
 }
 
-export default Error;
+export default Error
